@@ -10,4 +10,36 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'test',
+    loadComponent: () => import('./test/test.page').then( m => m.TestPage)
+  },
+  {
+    path: 'menu',
+    loadComponent: () => import('./menu/menu.page').then( m => m.MenuPage)
+  },
+  {
+    path: 'test-result',
+    loadComponent: () => import('./test-result/test-result.page').then( m => m.TestResultPage)
+  },
+  {
+    path: 'mytest',
+    loadComponent: () => import('./mytest/mytest.page').then( m => m.MytestPage)
+  },
+  {
+    path: 'registration',
+    loadComponent: () => import('./registration/registration.page').then( m => m.RegistrationPage)
+  },
+  {
+    path: 'verify-email',
+    loadComponent: () => import('./verify-email/verify-email.page').then( m => m.VerifyEmailPage)
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./dashboard/dashboard.page').then( m => m.DashboardPage)
+  },
 ];

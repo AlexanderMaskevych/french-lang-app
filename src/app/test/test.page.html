@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Food</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-grid>  
+    <ion-row class="ion-align-items-start">  
+      <ion-col>ion-col</ion-col>  
+      <ion-col>ion-col</ion-col>  
+      <ion-col>  
+        ion-col  
+        <br>
+        <br> 
+      </ion-col>  
+    </ion-row>  
+    <ion-row class="ion-align-items-center">  
+      <ion-col>ion-col</ion-col>  
+      <ion-col>ion-col</ion-col>  
+      <ion-col>   
+        <br>  
+        <br> 
+      </ion-col>  
+    </ion-row>  
+    <ion-row class="ion-align-items-end">  
+      <ion-col>ion-col</ion-col>  
+      <ion-col>ion-col</ion-col>  
+      <ion-col>  
+        ion-col  
+        <br> 
+        <br> 
+      </ion-col>  
+    </ion-row>  
+  </ion-grid>  
+  <!--<div *ngFor="let word of testWords | slice:start:end">
+    <ion-grid>
+      <ion-row class="ion-align-items-start">
+        <ion-col class="ion-text-center">
+          <ion-label id="answer" hidden="true"><div id="animate">{{answer}}</div></ion-label>
+        </ion-col>
+      </ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col class="ion-text-center">
+        <div class="animate__bounceIn"><ion-label><ion-label id="article" hidden="true">{{correctArticle}}</ion-label>{{word.word}}</ion-label></div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-end">
+      <ion-col class="ion-text-center">
+        <ion-button class="animate__bounceIn" id="M" shape="round" (click)="isCorrect('M', word.gender)" (click)="displayArticle()">{{articleM}}</ion-button>
+      </ion-col>
+      <ion-col class="ion-text-center">
+        <ion-button class="animate__bounceIn" id="F" shape="round" (click)="isCorrect('F', word.gender)" (click)="displayArticle()">{{articleF}}</ion-button>
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+  
+  </div>-->
+  <div *ngIf="end === 11" class="ion-text-center">
+    <ion-button  size="large" (click)="toTestResult()">Proceed</ion-button>
+</div>
+</ion-content>

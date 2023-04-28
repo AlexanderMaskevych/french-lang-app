@@ -1,5 +1,7 @@
 {
   "name": "french-lang-app",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

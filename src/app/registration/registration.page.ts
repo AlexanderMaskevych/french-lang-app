@@ -1,0 +1,33 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+
+import { Router } from "@angular/router";
+import { AuthenticationService } from "../database/authentication-service";
+
+@Component({
+  selector: 'app-registration',
+  templateUrl: './registration.page.html',
+  styleUrls: ['./registration.page.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule]
+})
+export class RegistrationPage implements OnInit {
+
+  constructor(public authService: AuthenticationService, public router: Router) { }
+
+  ngOnInit() {
+  }
+
+  signUp(email, password){
+    this.authService.RegisterUser(email.value, password.value)
+    .then((res) => {
+      // Do something here
+      this.authService.SendVerificationMail()
+      this.router.navigate(['verify-email']);
+    }).catch((error) => {
+      window.alert(error.message)
+    })
+}
+}
