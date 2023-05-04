@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { AuthenticationService } from "../database/authentication-service";
+import { AuthService } from '../database/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
@@ -17,59 +17,29 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class MenuPage implements OnInit {
 
-  loggedIn : boolean = false
+  loggedIn = true;
 
-  constructor(public authService: AuthenticationService, private router: Router, public ngFireAuth: AngularFireAuth, ) {
+  constructor(public authService: AuthService, private router: Router, public ngFireAuth: AngularFireAuth, ) {
    }
 
-  ngOnInit() {
-    //window.location.reload();
-    //this.ngFireAuth.onAuthStateChanged((user) => {
-      /*if (user) 
-        this.display = true;*/
-        //this.ngFireAuth.currentUser
-        //this.authService.SignOut();
-        //const user = JSON.parse(localStorage.getItem('user')!);
-        //console.log(user);
-        //const user = JSON.parse(localStorage.getItem('user')!);
-       /* user
-      } else {
-        this.display = false;
-      }*/
-    //});
-    //console.log(this.display);
-    //const user = firebase.auth().currentUser;
-let answer = this.authService.isLoggedIn
-if (answer) {
-  //console.log(user);
-  this.loggedIn = true;
-  // User is signed in, see docs for a list of available properties
-  // https://firebase.google.com/docs/reference/js/firebase.User
-  // ...
-} else {
-  this.loggedIn = false;
-  console.log("No");
-  
-  // No user is signed in.
-}
-  }
+  ngOnInit() {}
 
   toTest(){
-    this.router.navigate(['test']);
+    this.router.navigate(['/test']);
   }
 
   Show1() {
     this.loggedIn = true;
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
   Show2() {
     this.loggedIn = false;
-    this.authService.SignOut();
-}
-Show3() {
-  this.loggedIn = true;
-  this.router.navigate(['/registration']);
-}
+    this.authService.logout;
+  }
+  Show3() {
+    this.loggedIn = true;
+    this.router.navigate(['/registration']);
+  }
 
 }
 

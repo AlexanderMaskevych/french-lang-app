@@ -34,11 +34,9 @@ export class TestResultPage implements OnInit {
     });*/
   }
   ngOnInit() {
-    //console.log(this.result);
   }
  
   toMenu(){
-    console.log(this.result);
     this.router.navigate(['menu']);
   }
 }

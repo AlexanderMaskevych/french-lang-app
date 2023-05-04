@@ -29,17 +29,5 @@ export const routes: Routes = [
   {
     path: 'registration',
     loadComponent: () => import('./registration/registration.page').then( m => m.RegistrationPage)
-  },
-  {
-    path: 'verify-email',
-    loadComponent: () => import('./verify-email/verify-email.page').then( m => m.VerifyEmailPage)
-  },
-  {
-    path: 'login',
-    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
-  },
-  {
-    path: 'dashboard',
-    loadComponent: () => import('./dashboard/dashboard.page').then( m => m.DashboardPage)
-  },
+  }
 ];

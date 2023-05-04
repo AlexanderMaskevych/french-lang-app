@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase, AngularFireList, AngularFireObject} from '@angular/fire/compat/database';
+import { Word } from './Word';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +8,10 @@ import {AngularFireDatabase, AngularFireList, AngularFireObject} from '@angular/
 export class WordsDbService {
   wordsRef: AngularFireList<any>;
 
+
   constructor(private db: AngularFireDatabase){}
 
-  getWords(){
-    this.wordsRef = this.db.list<any>('Food');
-    return this.wordsRef;
+  getWords() {
+    return this.wordsRef = this.db.list('/Food');
    }
 }

@@ -7,6 +7,8 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 
+import { IonicStorageModule } from '@ionic/storage-angular';
+
 //Firebase
 
 import { AngularFireModule } from '@angular/fire/compat/';
@@ -20,7 +22,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    importProvidersFrom(IonicModule.forRoot({}), AngularFireModule.initializeApp(environment.firebaseConfig)),
-    provideRouter(routes),
+    importProvidersFrom(IonicModule.forRoot({}), AngularFireModule.initializeApp(environment.firebase), IonicStorageModule.forRoot()),
+    provideRouter(routes), Storage
   ],
 });

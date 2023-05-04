@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
 
-import { Router } from "@angular/router";
-import { AuthenticationService } from "../database/authentication-service";
+import { AuthService } from '../database/auth.service';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -13,21 +14,16 @@ import { AuthenticationService } from "../database/authentication-service";
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class RegistrationPage implements OnInit {
+export class RegistrationPage {
 
-  constructor(public authService: AuthenticationService, public router: Router) { }
+  signup = { email: '', password: '' };
+  submitted = false;
 
-  ngOnInit() {
+  constructor(private authService: AuthService, private router: Router) { }
+
+  onSignup(form: NgForm) {
+    if (form.valid) {
+      this.authService.signUpWithEmail({ email: form.control.value.email, password: form.control.value.password})
+    }
   }
-
-  signUp(email, password){
-    this.authService.RegisterUser(email.value, password.value)
-    .then((res) => {
-      // Do something here
-      this.authService.SendVerificationMail()
-      this.router.navigate(['verify-email']);
-    }).catch((error) => {
-      window.alert(error.message)
-    })
-}
 }

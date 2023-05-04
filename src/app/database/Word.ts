@@ -3,4 +3,5 @@ export class Word {
     word: string;
     frequencyIndex: number;
     gender: string
+    learnIndex: number;
 }
