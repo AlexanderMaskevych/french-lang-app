@@ -3,10 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Food</ion-title>
+    <ion-title>{{category}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
+  <div *ngIf="testEnd == false; else elsetag">
     <ion-grid>
       <ion-row class="ion-align-items-start">
         <ion-col class="ion-text-center answer">
@@ -15,19 +16,22 @@
       </ion-row>
     <ion-row class="ion-align-items-center">
       <ion-col class="ion-text-center">
-        <div class="animate__bounceIn"><ion-label><ion-label id="article" hidden="true">{{correctArticle}}</ion-label>{{word}}</ion-label></div>
+        <div class="animate__bounceIn"><ion-label><ion-label id="wordWithoutSuffix"><ion-label id="article" hidden="true">{{correctArticle}}</ion-label>{{word}}<ion-label id="suffix">{{wordSuffix}}</ion-label></ion-label></ion-label> </div>
       </ion-col>
     </ion-row>
     <ion-row class="ion-align-items-end">
       <ion-col class="ion-text-center">
-        <ion-button id="masculin" class="animate__bounceIn" shape="round" (click)="isCorrect('M')" (click)="displayArticle()">{{articleM}}</ion-button>
+        <ion-button id="masculin" class="animate__bounceIn" shape="round" (click)="isCorrect('M')">{{articleM}}</ion-button>
       </ion-col>
       <ion-col class="ion-text-center">
-        <ion-button id="feminin" class="animate__bounceIn" shape="round" (click)="isCorrect('F')" (click)="displayArticle()">{{articleF}}</ion-button>
+        <ion-button id="feminin" class="animate__bounceIn" shape="round" (click)="isCorrect('F')">{{articleF}}</ion-button>
       </ion-col>
     </ion-row>
     </ion-grid>
-  <!--<div *ngIf="end === 11" class="ion-text-center">
-    <ion-button  size="large" (click)="toTestResult()">Proceed</ion-button>
-</div>-->
+  </div>
+  <ng-template #elsetag>
+    <div class="ion-text-center">
+      <ion-button  size="large" (click)="toTestResult()">Proceed</ion-button>
+    </div>
+  </ng-template>
 </ion-content>

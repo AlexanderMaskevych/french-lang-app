@@ -37,17 +37,26 @@ export class AuthService {
 
   async googleLogin() {
     const credential = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-    this.updateUserData(credential.user);
-    this.router.navigate(['menu']);
-
+    return this.updateUserData(credential.user);
   }
 
 
   signUpWithEmail(data: any) {
     this.afAuth.createUserWithEmailAndPassword(data.email, data.password)
      .then(data => {
+        data.user!.sendEmailVerification().then(() => {
+          alert('Please verify your email');
+          this.afAuth.signOut();
+          this.router.navigate(['home']);
+        })
+    });
+  }
+
+  /*signUpWithEmail(data: any) {
+    this.afAuth.createUserWithEmailAndPassword(data.email, data.password)
+     .then(data => {
       if (data.user!.emailVerified) {
-        this.router.navigate(['menu']);
+        this.router.navigate(['/home']);
       } else {
         data.user!.sendEmailVerification().then(() => {
           alert('Please verify your email');
@@ -55,29 +64,28 @@ export class AuthService {
         })
       }
     });
-  }
+  }*/
 
   loginWithEmail(data: any) {
+    this.afAuth.signInWithEmailAndPassword(data.email, data.password)
+    .then(data => {
+      if(data.user?.emailVerified){
+      alert('Login successful');
+      this.router.navigateByUrl('menu');
+      }
+      else
+        alert('Please verify your email');
+    })
+
+  }
+
+  /*loginWithEmail(data: any) {
     this.afAuth.signInWithEmailAndPassword(data.email, data.password)
     .then(data => {
       alert('Login successful');
       this.router.navigateByUrl('menu');
     })
 
-  }
-
-  /*get isLoggedIn(): boolean {
-    this.appUser$ = this.afAuth.authState.pipe(
-      switchMap(user => {
-        // If the user is logged in, return the user details.
-        if (user) {
-          return true;
-        } else {
-          // If the user is NOT logged in, return null.
-          return of(null);
-        }
-      })
-    );
   }*/
 
   resetPassword(email: string) {

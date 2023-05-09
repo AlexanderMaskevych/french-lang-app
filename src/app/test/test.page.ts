@@ -14,6 +14,7 @@ import { HttpClient} from '@angular/common/http';
 
 import {learntWords } from './data';
 import { Storage } from '@ionic/storage'; 
+import { exists } from 'fs';
 
 @Component({
   selector: 'app-test',
@@ -24,82 +25,100 @@ import { Storage } from '@ionic/storage';
 })
 export class TestPage implements OnInit {
   answer : string;
-  allWords : any[] =[];
+  allWords : Word[] =[];
   testWords : Word[] = [];
-  learntWords : any[] = [];
   wordsInTest = 10;
   i = 0;
-  correctAnswers = 0;
   word : string;
+  correctAnswers = 0;
   TIME_IN_MS = 4000;
   correctArticle : string;
   articleM  : string;
   articleF : string;
   choice = false;
-  learnIndex = 2;
-  name : string;
-  data : any;
-  
+  learnIndexMax = 2;
+  testEnd = false;
+
+  suffixesMale : string[] = ["ment", "eur", "oir", "age", "er", "ier", "on", "gramme", "drome", "cide", "mètre", "scope", "isme", "phone"];
+  suffixesFemale : string[] =["tion", "ssion", "sion", "ure", "té", "ité", "ance", "ence", "e", "eur", "esse", "ie", "erie", "ette", "ée", "ine", "logie", "phobie", "manie", "thérapie", "nomie", "ite"];
+  wordWithoutSuffix : string [] = [];
+  wordSuffix : string;
+  category : string;
+  endingExistence = false;
 
   constructor(private wrdService: WordsDbService,
     private route: ActivatedRoute,
     private router: Router,
     private storages : StorageService) {
-      
+      this.route.params.subscribe(params => {
+      this.category = params['value'];
+  });  
   }
 
   ngOnInit() {
+    this.wrdService.getWords(this.category);
     this.fetchWords();
-    let bookingRes = this.wrdService.getWords();
-    bookingRes.snapshotChanges().subscribe(res => {
-      this.allWords = [];
+    let wordRes = this.wrdService.getWords(this.category);
+    wordRes.snapshotChanges().subscribe(res => {
       res.forEach(item => {
         let a = item.payload.toJSON();
         a!['$key'] = item.key;
         this.allWords.push(a as Word);
       })
+      //this.storages.clear()
       this.changeArticles();
       this.initializeTestWordsArray();
     })
   }
 
-  displayArticle() {
-      document.getElementById("article")!.hidden = false;
-  }
-    
   fetchWords() {
-    this.wrdService.getWords().valueChanges().subscribe(res =>{console.log(res)})
+    this.wrdService.getWords(this.category).valueChanges().subscribe(res =>{console.log(res)})
   }
 
   isCorrect(choice : string){
-    this.choice = true;
-    if(this.testWords[this.i].gender == choice)
-      this.correctArticle = this.articleM;
-    else
-      this.correctArticle = this.articleF;
+    document.getElementById("article")!.hidden = false;
     if(choice == this.testWords[this.i].gender){
-      this.answer = "Correct!";
       console.log("True");
-      this.testWords[this.i].learnIndex++;
-      /*document.getElementById("answer")!.setAttribute("color", "success");
+      this.answer = "Correct!";
+      document.getElementById("answer")!.setAttribute("color", "success");
       document.getElementById("animate")!.setAttribute("class", "animate__bounceIn");
-      document.getElementById("masculin")!.setAttribute("color", "success");*/
       this.correctAnswers++;
-      if(this.testWords[this.i].learnIndex == this.learnIndex){
+      this.testWords[this.i].learnIndex++;
+      if(this.testWords[this.i].learnIndex == this.learnIndexMax){
         console.log("Ok");
-        this.storages.set(this.testWords[this.i].word, this.testWords[this.i].word);
+        console.log(this.testWords[this.i].learnIndex);
+        this.storages.setObject(this.testWords[this.i].word, this.testWords[this.i]);
+      }
+      if(choice == 'M'){
+        //this.divideWord(this.suffixesMale);
+        this.correctArticle = this.articleM;
+        document.getElementById("masculin")!.setAttribute("color", "success");
+      }
+      else{
+        //this.divideWord(this.suffixesFemale);
+        this.correctArticle = this.articleF;
+        document.getElementById("feminin")!.setAttribute("color", "success");
       }
     }
     else{
-      this.answer = "Wrong!";
       console.log("False");
-      /*document.getElementById("answer")!.setAttribute("color", "danger")
-      document.getElementById("animate")!.setAttribute("class", "animate__bounceIn");*/
-      //document.getElementById(button_id)!.setAttribute("color", "danger");
+      this.answer = "Wrong!";
+      document.getElementById("answer")!.setAttribute("color", "danger")
+      if(choice == 'M')
+        document.getElementById("masculin")!.setAttribute("color", "danger");
+      else
+        document.getElementById("feminin")!.setAttribute("color", "danger");
     }
+    document.getElementById("animate")!.setAttribute("class", "animate__bounceIn");
+    document.getElementById("suffix")!.setAttribute("color", "danger");
     this.choice = true;
     this.i++;
-    setTimeout(() => {this.word = this.testWords[this.i].word; this.changeArticles(); this.choice = false}, this.TIME_IN_MS);
+    if(this.i < this.wordsInTest){
+      this.isThereEnding();
+      setTimeout(() => {this.changeArticles(); this.choice = false}, this.TIME_IN_MS);
+    }
+    else
+      this.testEnd = true;
 }
 
   toTestResult(){
@@ -118,31 +137,65 @@ export class TestPage implements OnInit {
     }
   }
 
-  async initializeTestWordsArray(){
-    let index : number;
-    let data : any;
-    //Randomize allWords array
-    for(let i = 0; i < this.allWords.length; i++)
+async initializeTestWordsArray(){
+    let data : Word;
+
+    for(let i = 0; i < this.wordsInTest; i++)
     {
-      index = Math.floor(Math.random() * this.allWords.length)
-      this.allWords[i]= this.allWords[index];
-    }
-    for(let c = 0; c < this.wordsInTest; c++){
-      //Check if a word from the database with a random index is in the Ionic Storage
-      data  = await this.storages.get(this.allWords[c].word);
+      data  = await this.storages.getObject(this.allWords[i].word);
       if (data == null){
-        console.log("True")
-        console.log(this.data);
-        this.testWords.push(this.allWords[c]);
-        console.log( this.testWords[c]);
+        console.log("A new word " + this.allWords[i].word);
+        this.storages.setObject(this.allWords[i].word, this.allWords[i]);
+        this.testWords.push(this.allWords[i]);
       }
-      else
-        console.log("The word " + data + "is already in storage!")
-      //Next word
+      else if(data.learnIndex < this.learnIndexMax){
+        this.testWords.push(data);
+        console.log("A word has already been in a test " + data.word);
+      }
     }
-    console.log(this.testWords.length);
-    //Sort the testWords array in ascending order using the frequencyIndex key
-    this.testWords = this.testWords.sort(function(a, b){return a.frequencyIndex - b.frequencyIndex;});
     this.word = this.testWords[this.i].word;
+    this.isThereEnding();
+  }
+  isThereEnding(){
+    let i;
+      if(this.testWords[this.i].gender == "M"){
+        console.log("Male");
+        console.log(this.suffixesMale.length);
+        for(i = 0; i < this.suffixesMale.length; i++){
+        if(this.testWords[this.i].word.endsWith(this.suffixesMale[i]) == true){
+          this.endingExistence = true;
+          console.log("Exists");
+          this.wordWithoutSuffix = this.testWords[this.i].word.split(this.suffixesMale[i]);
+          console.log(this.wordWithoutSuffix);
+          this.wordSuffix = this.suffixesMale[i];
+          console.log(this.wordSuffix); 
+        }
+      }
+      if(this.endingExistence == false){
+          console.log("Exception");
+          this.wordWithoutSuffix.push(this.testWords[this.i].word);
+          this.word = this.wordWithoutSuffix[0];
+          console.log(this.word);
+        }
+      }
+      else{
+        console.log("Female");
+        console.log(this.suffixesFemale.length);
+        for(i = 0; i < this.suffixesFemale.length; i++){
+        if(this.testWords[this.i].word.endsWith(this.suffixesFemale[i])){
+          console.log("Exists");
+          this.wordWithoutSuffix = this.testWords[this.i].word.split(this.suffixesFemale[i]);
+          console.log(this.wordWithoutSuffix);
+          this.wordSuffix = this.suffixesFemale[i];
+          console.log(this.wordSuffix);
+        }
+      }
+      if(this.endingExistence == false){
+        console.log("Exception");
+        this.wordWithoutSuffix.push(this.testWords[this.i].word);
+        this.word = this.wordWithoutSuffix[0];
+        console.log(this.word);
+      }
+    }
   }
 }

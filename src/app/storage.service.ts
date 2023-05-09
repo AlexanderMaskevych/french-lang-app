@@ -41,7 +41,7 @@ return null;
 }
 }
 // set a key/value object
-async setObject(key: string, object: Object) : Promise<any> {
+async setObject(key: string, object: Object): Promise<any>{
 try {
 const result = await this._storage?.set(key, JSON.stringify(object));
 console.log('set Object in storage: ' + result + 'Key ' + key);
@@ -56,7 +56,7 @@ async getObject(key: string) : Promise<any>{
   try {
   const result = await this._storage?.get(key);
   if (result != null) {
-  return JSON.parse(result);
+    return JSON.parse(result);
   }
   return null;
   } catch (reason) {

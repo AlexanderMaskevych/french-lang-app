@@ -1,323 +1,885 @@
 
 {
-    "Food": [ 
-        {
-            "word": "eau",
-            "frequencyIndex": 475,
-            "gender": "F",
-            "learnIndex": 0
-        },
-        {
-            "word": "fruit",
-            "frequencyIndex": 896,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "poisson",
-            "frequencyIndex": 1616,
-            "gender": "M",
-            "learnIndex": 0
-        },  
-        {
-            "word": "café",
-            "frequencyIndex": 1886,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "plat",
-            "frequencyIndex": 2167,
-            "gender": "M",
-            "learnIndex": 0
-        },  
-        {
-            "word": "nourriture",
-            "frequencyIndex": 2285,
-            "gender": "F",
-            "learnIndex": 0
-        },  
-        {
-            "word": "vin",
-            "frequencyIndex": 2309,
-            "gender": "M",
-            "learnIndex": 0
-        },  
-        {
-            "word": "restaurant",
-            "frequencyIndex": 2336,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "huile",
-            "frequencyIndex": 2340,
-            "gender": "F",
-            "learnIndex": 0
-        }, 
-        {
-            "word": "dîner",
-            "frequencyIndex": 2365,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "tabac",
-            "frequencyIndex": 2393,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "alcool",
-            "frequencyIndex": 2465,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "lait",
-            "frequencyIndex": 2507,
-            "gender": "M",
-            "learnIndex": 0
-        },  
-        {
-            "word": "glace",
-            "frequencyIndex": 2580,
-            "gender": "F",
-            "learnIndex": 0
-        },
-        {
-            "word": "cuisine",
-            "frequencyIndex": 2618,
-            "gender": "F",
-            "learnIndex": 0
-        }, 
-        {
-            "word": "viande",
-            "frequencyIndex": 2625,
-            "gender": "F",
-            "learnIndex": 0
-        },
-        { 
-            "word": "œuf",
-            "frequencyIndex": 2685,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "tranche",
-            "frequencyIndex": 2692,
-            "gender": "F",
-            "learnIndex": 0
-        },  
-        {
-            "word": "déjeuner",
-            "frequencyIndex": 2724,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "pain",
-            "frequencyIndex": 2802,
-            "gender": "M",
-            "learnIndex": 0
-        },  
-        {
-            "word": "aliment",
-            "frequencyIndex": 2845,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "pomme",
-            "frequencyIndex": 2847,
-            "gender": "F",
-            "learnIndex": 0
-        }, 
-        {
-            "word": "cigarette",
-            "frequencyIndex": 2855,
-            "gender": "F",
-            "learnIndex": 0
-        },  
-        {
-            "word": "repas",
-            "frequencyIndex": 2948,
-            "gender": "M",
-            "learnIndex": 0
-        },  
-        {
-            "word": "bouteille",
-            "frequencyIndex": 2979,
-            "gender": "F",
-            "learnIndex": 0
-        },
-        {
-            "word": "bar",
-            "frequencyIndex": 3012,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "légume",
-            "frequencyIndex": 3117,
-            "gender": "F",
-            "learnIndex": 0
-        },
-        {
-            "word": "bière",
-            "frequencyIndex": 3152,
-            "gender": "F",
-            "learnIndex": 0
-        },
-        {
-            "word": "sucre",
-            "frequencyIndex": 3258,
-            "gender": "M",
-            "learnIndex": 0
-        }, 
-        {
-            "word": "blé",
-            "frequencyIndex": 3265,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "spécialité",
-            "frequencyIndex": 3356,
-            "gender": "F",
-            "learnIndex": 0
-        },
-        {
-            "word": "menu",
-            "frequencyIndex": 3470,
-            "gender": "M",
-            "learnIndex": 0
-        }, 
-        {
-            "word": "thé",
-            "frequencyIndex": 3517,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "liquide",
-            "frequencyIndex": 3520,
-            "gender": "F",
-            "learnIndex": 0
-        },
-        {
-            "word": "herbe",
-            "frequencyIndex": 3562,
-            "gender": "F",
-            "learnIndex": 0
-        },
-        {
-            "word": "pâte",
-            "frequencyIndex": 3641,
-            "gender": "F",
-            "learnIndex": 0
-        },  
-        {
-            "word": "baie",
-            "frequencyIndex": 3719,
-            "gender": "F",
-            "learnIndex": 0
-        },  
-        {
-            "word": "orange",
-            "frequencyIndex": 3912,
-            "gender": "F",
-            "learnIndex": 0
-        },
-        {
-            "word": "bœuf",
-            "frequencyIndex": 3914,
-            "gender": "M",
-            "learnIndex": 0
-        },  
-        {
-            "word": "porc",
-            "frequencyIndex": 4036,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "beurre",
-            "frequencyIndex": 4112,
-            "gender": "M",
-            "learnIndex": 0
-        }, 
-        {
-            "word": "mouton",
-            "frequencyIndex": 4175,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "poulet",
-            "frequencyIndex": 4222,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "sel",
-            "frequencyIndex": 4276,
-            "gender": "M",
-            "learnIndex": 0
-        },
-        {
-            "word": "poule",
-            "frequencyIndex": 4321,
-            "gender": "F",
-            "learnIndex": 0
-        },
-        {
-            "word": "fromage",
-            "frequencyIndex": 4475,
-            "gender": "M",
-            "learnIndex": 0
-        }, 
-        {
-            "word": "chocolat",
-            "frequencyIndex": 4556,
-            "gender": "M",
-            "learnIndex": 0
-        }, 
-        {
-            "word": "soupe",
-            "frequencyIndex": 4563,
-            "gender": "F",
-            "learnIndex": 0
-        }, 
-        {
-            "word": "crème",
-            "frequencyIndex": 4748,
-            "gender": "F",
-            "learnIndex": 0
-        }, 
-        {
-            "word": "gâteau",
-            "frequencyIndex": 4845,
-            "gender": "M",
-            "learnIndex": 0
-        },  
-        {
-            "word": "céréale",
-            "frequencyIndex": 4983,
-            "gender": "F",
-            "learnIndex": 0
-        },  
-        {
-            "word": "cocktail",
-            "frequencyIndex": 4992,
-            "gender": "M",
-            "learnIndex": 0
-        }, 
-        {
-            "word": "riz",
-            "frequencyIndex": 5012,
-            "gender": "M",
-            "learnIndex": 0
-        }   
-    ]
+        "Animals":[
+            {
+                "word": "animal",
+                "frequencyIndex": 1002,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "poisson",
+                "frequencyIndex": 1616,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "chien",
+                "frequencyIndex": 1744,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "cheval",
+                "frequencyIndex": 2220,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "oiseau",
+                "frequencyIndex": 2435,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "bête",
+                "frequencyIndex": 2591,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "vache",
+                "frequencyIndex": 2768,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "chat",
+                "frequencyIndex": 3138,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "monstre",
+                "frequencyIndex": 3353,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "virus",
+                "frequencyIndex": 3382,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "bœuf",
+                "frequencyIndex": 3914,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "loup",
+                "frequencyIndex": 3927,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "porc",
+                "frequencyIndex": 4036,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "mouton",
+                "frequencyIndex": 4175,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "rat",
+                "frequencyIndex": 4290,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "poule",
+                "frequencyIndex": 4321,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "souris",
+                "frequencyIndex": 4328,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "singe",
+                "frequencyIndex": 4739,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "ours",
+                "frequencyIndex": 4800,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "bétail",
+                "frequencyIndex": 4842,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "cochon",
+                "frequencyIndex": 4947,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "canard",
+                "frequencyIndex": 5295,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "lion",
+                "frequencyIndex": 5413,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "serpent",
+                "frequencyIndex": 5574,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "puce",
+                "frequencyIndex": 5788,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "lapin",
+                "frequencyIndex": 5833,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "papillon",
+                "frequencyIndex": 5979,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "dragon",
+                "frequencyIndex": 6054,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "chèvre",
+                "frequencyIndex": 6074,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "saumon",
+                "frequencyIndex": 6287,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "moule",
+                "frequencyIndex": 6520,
+                "gender": "F",
+                "learnIndex": 0
+            }
+        ],
+        "Body":[
+            {
+                "word": "tête",
+                "frequencyIndex": 343,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "voix",
+                "frequencyIndex": 414,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "main",
+                "frequencyIndex": 418,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "œil",
+                "frequencyIndex": 474,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "esprit",
+                "frequencyIndex": 538,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "sein",
+                "frequencyIndex": 563,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "cœur",
+                "frequencyIndex": 568,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "pied",
+                "frequencyIndex": 626,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "langue",
+                "frequencyIndex": 712,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "sang",
+                "frequencyIndex": 1126,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "bras",
+                "frequencyIndex": 1253,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "visage",
+                "frequencyIndex": 1292,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "côte",
+                "frequencyIndex": 1385,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "dos",
+                "frequencyIndex": 1672,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "front",
+                "frequencyIndex": 1729,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "figure",
+                "frequencyIndex": 1825,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "bouche",
+                "frequencyIndex": 1838,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "oreille",
+                "frequencyIndex": 1884,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "doigt",
+                "frequencyIndex": 1938,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "cerveau",
+                "frequencyIndex": 1990,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "peau",
+                "frequencyIndex": 2122,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "cheveu",
+                "frequencyIndex": 2296,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "sac",
+                "frequencyIndex": 2343,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "organe",
+                "frequencyIndex": 2417,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "jambe",
+                "frequencyIndex": 2472,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "épaule",
+                "frequencyIndex": 2494,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "nez",
+                "frequencyIndex": 2661,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "tissu",
+                "frequencyIndex": 2696,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "dent",
+                "frequencyIndex": 2784,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "cadavre",
+                "frequencyIndex": 2892,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "lèvre",
+                "frequencyIndex": 2927,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "cul",
+                "frequencyIndex": 2949,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "genou",
+                "frequencyIndex": 2967,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "gueule",
+                "frequencyIndex": 3015,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "ventre",
+                "frequencyIndex": 3150,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "chair",
+                "frequencyIndex": 3260,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "pouce",
+                "frequencyIndex": 3298,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "cou",
+                "frequencyIndex": 3820,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "poing",
+                "frequencyIndex": 3889,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "joue",
+                "frequencyIndex": 3932,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "os",
+                "frequencyIndex": 4092,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "poitrine",
+                "frequencyIndex": 4168,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "gorge",
+                "frequencyIndex": 4194,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "crâne",
+                "frequencyIndex": 4314,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "coude",
+                "frequencyIndex": 4404,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "poumon",
+                "frequencyIndex": 4679,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "poil",
+                "frequencyIndex": 4723,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "foie",
+                "frequencyIndex": 4817,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "talon",
+                "frequencyIndex": 5049,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "barbe",
+                "frequencyIndex": 5053,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "veine",
+                "frequencyIndex": 5263,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "cuisse",
+                "frequencyIndex": 5292,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "rein",
+                "frequencyIndex": 5493,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "muscle",
+                "frequencyIndex": 5860,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "fesse",
+                "frequencyIndex": 6087,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "estomac",
+                "frequencyIndex": 6209,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "ongle",
+                "frequencyIndex": 6275,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "cheville",
+                "frequencyIndex": 6313,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "sourcil",
+                "frequencyIndex": 6344,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "moustache",
+                "frequencyIndex": 6360,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "hormone",
+                "frequencyIndex": 6434,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "tumeur",
+                "frequencyIndex": 6450,
+                "gender": "F",
+                "learnIndex": 0
+            }
+        ],
+        "Food": [ 
+            {
+                "word": "eau",
+                "frequencyIndex": 475,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "fruit",
+                "frequencyIndex": 896,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "poisson",
+                "frequencyIndex": 1616,
+                "gender": "M",
+                "learnIndex": 0
+            },  
+            {
+                "word": "café",
+                "frequencyIndex": 1886,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "plat",
+                "frequencyIndex": 2167,
+                "gender": "M",
+                "learnIndex": 0
+            },  
+            {
+                "word": "nourriture",
+                "frequencyIndex": 2285,
+                "gender": "F",
+                "learnIndex": 0
+            },  
+            {
+                "word": "vin",
+                "frequencyIndex": 2309,
+                "gender": "M",
+                "learnIndex": 0
+            },  
+            {
+                "word": "restaurant",
+                "frequencyIndex": 2336,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "huile",
+                "frequencyIndex": 2340,
+                "gender": "F",
+                "learnIndex": 0
+            }, 
+            {
+                "word": "dîner",
+                "frequencyIndex": 2365,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "tabac",
+                "frequencyIndex": 2393,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "alcool",
+                "frequencyIndex": 2465,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "lait",
+                "frequencyIndex": 2507,
+                "gender": "M",
+                "learnIndex": 0
+            },  
+            {
+                "word": "glace",
+                "frequencyIndex": 2580,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "cuisine",
+                "frequencyIndex": 2618,
+                "gender": "F",
+                "learnIndex": 0
+            }, 
+            {
+                "word": "viande",
+                "frequencyIndex": 2625,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            { 
+                "word": "œuf",
+                "frequencyIndex": 2685,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "tranche",
+                "frequencyIndex": 2692,
+                "gender": "F",
+                "learnIndex": 0
+            },  
+            {
+                "word": "déjeuner",
+                "frequencyIndex": 2724,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "pain",
+                "frequencyIndex": 2802,
+                "gender": "M",
+                "learnIndex": 0
+            },  
+            {
+                "word": "aliment",
+                "frequencyIndex": 2845,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "pomme",
+                "frequencyIndex": 2847,
+                "gender": "F",
+                "learnIndex": 0
+            }, 
+            {
+                "word": "cigarette",
+                "frequencyIndex": 2855,
+                "gender": "F",
+                "learnIndex": 0
+            },  
+            {
+                "word": "repas",
+                "frequencyIndex": 2948,
+                "gender": "M",
+                "learnIndex": 0
+            },  
+            {
+                "word": "bouteille",
+                "frequencyIndex": 2979,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "bar",
+                "frequencyIndex": 3012,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "légume",
+                "frequencyIndex": 3117,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "bière",
+                "frequencyIndex": 3152,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "sucre",
+                "frequencyIndex": 3258,
+                "gender": "M",
+                "learnIndex": 0
+            }, 
+            {
+                "word": "blé",
+                "frequencyIndex": 3265,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "spécialité",
+                "frequencyIndex": 3356,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "menu",
+                "frequencyIndex": 3470,
+                "gender": "M",
+                "learnIndex": 0
+            }, 
+            {
+                "word": "thé",
+                "frequencyIndex": 3517,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "liquide",
+                "frequencyIndex": 3520,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "herbe",
+                "frequencyIndex": 3562,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "pâte",
+                "frequencyIndex": 3641,
+                "gender": "F",
+                "learnIndex": 0
+            },  
+            {
+                "word": "baie",
+                "frequencyIndex": 3719,
+                "gender": "F",
+                "learnIndex": 0
+            },  
+            {
+                "word": "orange",
+                "frequencyIndex": 3912,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "bœuf",
+                "frequencyIndex": 3914,
+                "gender": "M",
+                "learnIndex": 0
+            },  
+            {
+                "word": "porc",
+                "frequencyIndex": 4036,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "beurre",
+                "frequencyIndex": 4112,
+                "gender": "M",
+                "learnIndex": 0
+            }, 
+            {
+                "word": "mouton",
+                "frequencyIndex": 4175,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "poulet",
+                "frequencyIndex": 4222,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "sel",
+                "frequencyIndex": 4276,
+                "gender": "M",
+                "learnIndex": 0
+            },
+            {
+                "word": "poule",
+                "frequencyIndex": 4321,
+                "gender": "F",
+                "learnIndex": 0
+            },
+            {
+                "word": "fromage",
+                "frequencyIndex": 4475,
+                "gender": "M",
+                "learnIndex": 0
+            }, 
+            {
+                "word": "chocolat",
+                "frequencyIndex": 4556,
+                "gender": "M",
+                "learnIndex": 0
+            }, 
+            {
+                "word": "soupe",
+                "frequencyIndex": 4563,
+                "gender": "F",
+                "learnIndex": 0
+            }, 
+            {
+                "word": "crème",
+                "frequencyIndex": 4748,
+                "gender": "F",
+                "learnIndex": 0
+            }, 
+            {
+                "word": "gâteau",
+                "frequencyIndex": 4845,
+                "gender": "M",
+                "learnIndex": 0
+            },  
+            {
+                "word": "céréale",
+                "frequencyIndex": 4983,
+                "gender": "F",
+                "learnIndex": 0
+            },  
+            {
+                "word": "cocktail",
+                "frequencyIndex": 4992,
+                "gender": "M",
+                "learnIndex": 0
+            }, 
+            {
+                "word": "riz",
+                "frequencyIndex": 5012,
+                "gender": "M",
+                "learnIndex": 0
+            }   
+        ]
 }

@@ -11,7 +11,8 @@ export class WordsDbService {
 
   constructor(private db: AngularFireDatabase){}
 
-  getWords() {
-    return this.wordsRef = this.db.list('/Food');
+  getWords(category : string) {
+    return this.wordsRef = this.db.list(category);
+    //this.wordsRef.valueChanges().subscribe(res =>{console.log(res)})
    }
 }

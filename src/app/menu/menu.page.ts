@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../database/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { WordsDbService } from '../database/words-db.service';
 
 @Component({
   selector: 'app-menu',
@@ -18,17 +19,25 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class MenuPage implements OnInit {
 
   loggedIn = true;
+  category : string;
+  categories: string[] = ["Body", "Animals", "Food"];
 
   constructor(public authService: AuthService, private router: Router, public ngFireAuth: AngularFireAuth, ) {
    }
 
   ngOnInit() {}
 
-  toTest(){
-    this.router.navigate(['/test']);
+  toTest(category : string){
+    /*for(let i = 0; i < this.categories.length; i++){
+    if(category == this.categories[i])
+      this.category = this.categories[i];
+    }*/
+    //this.category = "Body";
+    this.router.navigate(['/test', { value: category }]);
   }
 
   Show1() {
+    //this.authService.appUser$
     this.loggedIn = true;
     this.router.navigate(['/home']);
   }
