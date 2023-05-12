@@ -18,36 +18,31 @@ import { WordsDbService } from '../database/words-db.service';
 })
 export class MenuPage implements OnInit {
 
-  loggedIn = true;
+  isLoggedIn = false;
   category : string;
   categories: string[] = ["Body", "Animals", "Food"];
 
-  constructor(public authService: AuthService, private router: Router, public ngFireAuth: AngularFireAuth, ) {
+  constructor(public authService: AuthService, private router: Router, public ngFireAuth: AngularFireAuth) {
    }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isLoggedIn = this.authService.isLoggedIn;
+  }
 
   toTest(category : string){
-    /*for(let i = 0; i < this.categories.length; i++){
-    if(category == this.categories[i])
-      this.category = this.categories[i];
-    }*/
-    //this.category = "Body";
     this.router.navigate(['/test', { value: category }]);
   }
 
   Show1() {
-    //this.authService.appUser$
-    this.loggedIn = true;
-    this.router.navigate(['/home']);
+    //this.router.navigate(['/home']);
   }
+  
   Show2() {
-    this.loggedIn = false;
-    this.authService.logout;
-  }
-  Show3() {
-    this.loggedIn = true;
     this.router.navigate(['/registration']);
+  }
+
+  Show3() {
+    this.authService.logout();
   }
 
 }

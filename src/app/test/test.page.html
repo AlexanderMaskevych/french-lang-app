@@ -7,31 +7,26 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-  <div *ngIf="testEnd == false; else elsetag">
     <ion-grid>
       <ion-row class="ion-align-items-start">
         <ion-col class="ion-text-center answer">
-            <ion-label id="answer"><div id="animate"><div *ngIf="choice == true"><h1>{{answer}}</h1></div></div></ion-label>
+          <ion-text [ngClass]="isCorrect()? 'correct_answer_text' : 'wrong_answer_text'">
+            <h1 id="answer" hidden="true">{{answer}}</h1>
+          </ion-text>
         </ion-col>
       </ion-row>
     <ion-row class="ion-align-items-center">
       <ion-col class="ion-text-center">
-        <div class="animate__bounceIn"><ion-label><ion-label id="wordWithoutSuffix"><ion-label id="article" hidden="true">{{correctArticle}}</ion-label>{{word}}<ion-label id="suffix">{{wordSuffix}}</ion-label></ion-label></ion-label> </div>
+        <h3><ion-text id="article" hidden="true">{{correctArticle}}</ion-text>{{word}}<ion-text [ngClass]="isClickedAny()? 'text_clicked_color' : 'text_default_color'">{{wordEnding}}</ion-text></h3>
       </ion-col>
     </ion-row>
     <ion-row class="ion-align-items-end">
       <ion-col class="ion-text-center">
-        <ion-button id="masculin" class="animate__bounceIn" shape="round" (click)="isCorrect('M')">{{articleM}}</ion-button>
+        <ion-button [disabled]="choice == true" [ngClass]="isClicked()?(isCorrect()? 'correct_answer_button' : 'wrong_answer_button') : 'default'" class="animate__bounceIn" shape="round" (click)="check('M')">{{articleM}}</ion-button>
       </ion-col>
       <ion-col class="ion-text-center">
-        <ion-button id="feminin" class="animate__bounceIn" shape="round" (click)="isCorrect('F')">{{articleF}}</ion-button>
+        <ion-button [disabled]="choice == true" [ngClass]="isClicked1()?(isCorrect()? 'correct_answer_button' : 'wrong_answer_button') : 'default'" class="animate__bounceIn" shape="round" (click)="check('F')">{{articleF}}</ion-button>
       </ion-col>
     </ion-row>
     </ion-grid>
-  </div>
-  <ng-template #elsetag>
-    <div class="ion-text-center">
-      <ion-button  size="large" (click)="toTestResult()">Proceed</ion-button>
-    </div>
-  </ng-template>
 </ion-content>

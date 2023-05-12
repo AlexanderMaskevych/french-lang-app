@@ -8,12 +8,15 @@ import { switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { IUser } from '../database/user';
 
+import { MenuPage } from '../menu/menu.page';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
   appUser$: Observable<IUser | null | undefined>;
+  isLoggedIn = false;
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -26,13 +29,33 @@ export class AuthService {
       switchMap(user => {
         // If the user is logged in, return the user details.
         if (user) {
+          this.isLoggedIn = true;
+          console.log(this.isLoggedIn);
           return this.db.doc<IUser>(`appusers/${user.uid}`).valueChanges();
         } else {
+          this.isLoggedIn = false;
+          console.log(this.isLoggedIn);
           // If the user is NOT logged in, return null.
           return of(null);
         }
       })
     );
+    //this.getAuthState();
+  }
+
+  getAuthState() 
+  {
+    this.afAuth.authState.subscribe(res => {
+      if (res && res.uid) {
+        console.log('user is logged in');
+        this.isLoggedIn = true;
+        console.log(this.isLoggedIn);  
+      } else {
+        console.log('user not logged in');
+        this.isLoggedIn = false;
+        console.log(this.isLoggedIn);
+      }
+    });
   }
 
   async googleLogin() {
@@ -71,7 +94,10 @@ export class AuthService {
     .then(data => {
       if(data.user?.emailVerified){
       alert('Login successful');
-      this.router.navigateByUrl('menu');
+      this.isLoggedIn = true;
+      //this.mp.isLoggedIn = this.isLoggedIn
+      console.log(this.isLoggedIn);
+      this.router.navigate(['/menu']);
       }
       else
         alert('Please verify your email');
@@ -112,7 +138,8 @@ export class AuthService {
 
 logout() {
     this.afAuth.signOut().then(() => {
-      this.router.navigate(['/']);
+      this.isLoggedIn = false;
+      this.router.navigate(['home']);
     });
  }
 }

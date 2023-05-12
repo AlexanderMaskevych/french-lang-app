@@ -24,12 +24,14 @@ import { exists } from 'fs';
   imports: [IonicModule, CommonModule, FormsModule],
 })
 export class TestPage implements OnInit {
+
+  category : string;
+
   answer : string;
   allWords : Word[] =[];
   testWords : Word[] = [];
-  wordsInTest = 10;
+  wordsInTest = 3;
   i = 0;
-  word : string;
   correctAnswers = 0;
   TIME_IN_MS = 4000;
   correctArticle : string;
@@ -39,12 +41,16 @@ export class TestPage implements OnInit {
   learnIndexMax = 2;
   testEnd = false;
 
-  suffixesMale : string[] = ["ment", "eur", "oir", "age", "er", "ier", "on", "gramme", "drome", "cide", "mètre", "scope", "isme", "phone"];
-  suffixesFemale : string[] =["tion", "ssion", "sion", "ure", "té", "ité", "ance", "ence", "e", "eur", "esse", "ie", "erie", "ette", "ée", "ine", "logie", "phobie", "manie", "thérapie", "nomie", "ite"];
-  wordWithoutSuffix : string [] = [];
-  wordSuffix : string;
-  category : string;
-  endingExistence = false;
+  endingsMale : string[] = ["ment", "eur", "oir", "age", "er", "ier", "on", "gramme", "drome", "cide", "mètre", "scope", "isme", "phone"];
+  endingsFemale : string[] =["tion", "ssion", "sion", "ure", "té", "ité", "ance", "ence", "e", "eur", "esse", "ie", "erie", "ette", "ée", "ine", "logie", "phobie", "manie", "thérapie", "nomie", "ite"];
+  wordAfterSplit : string [] = [];
+  word : string;
+  wordEnding : string;
+  endingFound = false;
+
+  isClick = false;
+  isClick1 = false;
+  isAnswerCorrect = false;
 
   constructor(private wrdService: WordsDbService,
     private route: ActivatedRoute,
@@ -75,55 +81,87 @@ export class TestPage implements OnInit {
     this.wrdService.getWords(this.category).valueChanges().subscribe(res =>{console.log(res)})
   }
 
-  isCorrect(choice : string){
+  isClickedAny(){
+    return this.choice;
+  }
+
+  isClicked(){
+      return this.isClick;
+  }
+
+  isClicked1(){
+      return this.isClick1;
+  }
+
+  isCorrect(){
+    return this.isAnswerCorrect;
+  }
+
+  check(choice : string){
+    this.choice = true;
     document.getElementById("article")!.hidden = false;
+    document.getElementById("answer")!.hidden = false;
+    //document.getElementById("answer")!.disa
     if(choice == this.testWords[this.i].gender){
       console.log("True");
       this.answer = "Correct!";
-      document.getElementById("answer")!.setAttribute("color", "success");
-      document.getElementById("animate")!.setAttribute("class", "animate__bounceIn");
+      this.isAnswerCorrect = true;
+      //document.getElementById("animate")!.setAttribute("class", "animate__bounceIn");
       this.correctAnswers++;
       this.testWords[this.i].learnIndex++;
+      this.storages.setObject(this.testWords[this.i].word, this.testWords[this.i]);
       if(this.testWords[this.i].learnIndex == this.learnIndexMax){
         console.log("Ok");
         console.log(this.testWords[this.i].learnIndex);
         this.storages.setObject(this.testWords[this.i].word, this.testWords[this.i]);
       }
       if(choice == 'M'){
-        //this.divideWord(this.suffixesMale);
         this.correctArticle = this.articleM;
-        document.getElementById("masculin")!.setAttribute("color", "success");
+        this.isClick = true;
       }
       else{
-        //this.divideWord(this.suffixesFemale);
         this.correctArticle = this.articleF;
-        document.getElementById("feminin")!.setAttribute("color", "success");
+        this.isClick1 = true;
       }
     }
     else{
       console.log("False");
       this.answer = "Wrong!";
-      document.getElementById("answer")!.setAttribute("color", "danger")
-      if(choice == 'M')
-        document.getElementById("masculin")!.setAttribute("color", "danger");
-      else
-        document.getElementById("feminin")!.setAttribute("color", "danger");
+      this.isAnswerCorrect = false;
+      if(choice == 'M'){
+        this.correctArticle = this.articleM;
+        this.isClick = true;
+      }
+      else{
+        this.correctArticle = this.articleM;
+        this.isClick1 = true;
+      }
     }
-    document.getElementById("animate")!.setAttribute("class", "animate__bounceIn");
-    document.getElementById("suffix")!.setAttribute("color", "danger");
-    this.choice = true;
+    //document.getElementById("animate")!.setAttribute("class", "animate__bounceIn");
+    if(this.endingFound == true){
+      this.endingFound = false;
+    }
     this.i++;
     if(this.i < this.wordsInTest){
-      this.isThereEnding();
-      setTimeout(() => {this.changeArticles(); this.choice = false}, this.TIME_IN_MS);
+      setTimeout(() => {this.continue();}, this.TIME_IN_MS);
     }
     else
-      this.testEnd = true;
-}
+      setTimeout(() => {this.toTestResult();}, this.TIME_IN_MS);
+  }
 
   toTestResult(){
-    this.router.navigate(['test-result',  { value: this.correctAnswers }]);
+    let navigationExtras: NavigationExtras = {
+      state: {
+        value: this.correctAnswers,
+        testWords: this.testWords
+      }
+    };
+    this.router.navigate(['test-result'], navigationExtras);
   }
+
+  /*toTestResult(){
+    this.router.navigate(['test-result',  { value: this.correctAnswers }]);
+  }*/
 
   changeArticles()
   {
@@ -140,7 +178,7 @@ export class TestPage implements OnInit {
 async initializeTestWordsArray(){
     let data : Word;
 
-    for(let i = 0; i < this.wordsInTest; i++)
+    for(let i = 0; this.testWords.length < this.wordsInTest; i++)
     {
       data  = await this.storages.getObject(this.allWords[i].word);
       if (data == null){
@@ -150,52 +188,41 @@ async initializeTestWordsArray(){
       }
       else if(data.learnIndex < this.learnIndexMax){
         this.testWords.push(data);
-        console.log("A word has already been in a test " + data.word);
+        console.log("A word has already been in a test " + data.word + " learnIndex " + data.learnIndex);
       }
     }
-    this.word = this.testWords[this.i].word;
-    this.isThereEnding();
+    console.log(this.testWords);
+    if(this.testWords[this.i].gender == 'M')
+      this.findEnding(this.endingsMale);
+    else
+      this.findEnding(this.endingsFemale);
   }
-  isThereEnding(){
-    let i;
-      if(this.testWords[this.i].gender == "M"){
-        console.log("Male");
-        console.log(this.suffixesMale.length);
-        for(i = 0; i < this.suffixesMale.length; i++){
-        if(this.testWords[this.i].word.endsWith(this.suffixesMale[i]) == true){
-          this.endingExistence = true;
-          console.log("Exists");
-          this.wordWithoutSuffix = this.testWords[this.i].word.split(this.suffixesMale[i]);
-          console.log(this.wordWithoutSuffix);
-          this.wordSuffix = this.suffixesMale[i];
-          console.log(this.wordSuffix); 
-        }
-      }
-      if(this.endingExistence == false){
-          console.log("Exception");
-          this.wordWithoutSuffix.push(this.testWords[this.i].word);
-          this.word = this.wordWithoutSuffix[0];
-          console.log(this.word);
-        }
-      }
-      else{
-        console.log("Female");
-        console.log(this.suffixesFemale.length);
-        for(i = 0; i < this.suffixesFemale.length; i++){
-        if(this.testWords[this.i].word.endsWith(this.suffixesFemale[i])){
-          console.log("Exists");
-          this.wordWithoutSuffix = this.testWords[this.i].word.split(this.suffixesFemale[i]);
-          console.log(this.wordWithoutSuffix);
-          this.wordSuffix = this.suffixesFemale[i];
-          console.log(this.wordSuffix);
-        }
-      }
-      if(this.endingExistence == false){
-        console.log("Exception");
-        this.wordWithoutSuffix.push(this.testWords[this.i].word);
-        this.word = this.wordWithoutSuffix[0];
-        console.log(this.word);
-      }
+  findEnding(array : string[]){
+    for(let i = 0; i < array.length; i++){
+    if(this.testWords[this.i].word.endsWith(array[i]) == true){
+      this.endingFound = true;
+      console.log("Exists");
+      this.wordAfterSplit = this.testWords[this.i].word.split(array[i]);
+      this.word = this.wordAfterSplit[0];
+      this.wordEnding = array[i];
     }
+  }
+  if(this.endingFound == false){
+      console.log("Exception");
+      this.word = this.testWords[this.i].word;
+    }
+  }
+
+  continue(){
+    this.choice = false;
+    this.isClick = false;
+    this.isClick1 = false;
+    this.changeArticles();
+    if(this.testWords[this.i].gender == 'M')
+      this.findEnding(this.endingsMale);
+    else
+      this.findEnding(this.endingsFemale);
+    document.getElementById("article")!.hidden = true;
+    document.getElementById("answer")!.hidden = true;
   }
 }

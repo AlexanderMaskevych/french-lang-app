@@ -1,10 +1,37 @@
-ion-content {
-    --padding-top: 100px;
+ion-content{
+    --padding-top: 140px;
 }
 
 .answer{
-    --min-height: 50px;
+    --min-height: 150px;
 }
 
+.default{
+    --background: rgb(9, 223, 243);
+}
+
+.correct_answer_button{
+    --background: rgb(11, 216, 11);
+}
+
+.wrong_answer_button{
+    --background: rgb(255, 0, 106);
+}
+
+.correct_answer_text{
+    color: rgb(11, 216, 11);
+}
+
+.wrong_answer_text{
+    color: rgb(255, 0, 106);
+}
+
+.text_default_color{
+    color: black;
+}
+
+.text_clicked_color{
+    color: blue;
+}
 
 

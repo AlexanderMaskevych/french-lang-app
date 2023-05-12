@@ -9,13 +9,18 @@
     <ion-row>
       <ion-col class="ion-text-center">
         <ion-label><h1>Your score:</h1></ion-label>
-        <h1>{{result}} %</h1>
+        <h1>{{result}}%</h1>
       </ion-col>
     </ion-row>
-  <ion-row>
-    <ion-col class="ion-text-center">
-      <ion-button (click)="toMenu()">Complete</ion-button>
-    </ion-col>
-  </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-button color="danger" (click)="toMenu()">Complete</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-button (click)="toAnswers()">See answers</ion-button>
+      </ion-col>
+    </ion-row>
 </ion-grid>
 </ion-content>
