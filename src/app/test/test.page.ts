@@ -43,7 +43,6 @@ export class TestPage implements OnInit {
 
   endingsMale : string[] = ["ment", "eur", "oir", "age", "er", "ier", "on", "gramme", "drome", "cide", "mètre", "scope", "isme", "phone"];
   endingsFemale : string[] =["tion", "ssion", "sion", "ure", "té", "ité", "ance", "ence", "e", "eur", "esse", "ie", "erie", "ette", "ée", "ine", "logie", "phobie", "manie", "thérapie", "nomie", "ite"];
-  wordAfterSplit : string [] = [];
   word : string;
   wordEnding : string;
   endingFound = false;
@@ -51,6 +50,9 @@ export class TestPage implements OnInit {
   isClick = false;
   isClick1 = false;
   isAnswerCorrect = false;
+
+  articlesWithWords : string[] = [];
+  allAnswers: string[] = [];
 
   constructor(private wrdService: WordsDbService,
     private route: ActivatedRoute,
@@ -81,10 +83,6 @@ export class TestPage implements OnInit {
     this.wrdService.getWords(this.category).valueChanges().subscribe(res =>{console.log(res)})
   }
 
-  isClickedAny(){
-    return this.choice;
-  }
-
   isClicked(){
       return this.isClick;
   }
@@ -99,9 +97,10 @@ export class TestPage implements OnInit {
 
   check(choice : string){
     this.choice = true;
-    document.getElementById("article")!.hidden = false;
-    document.getElementById("answer")!.hidden = false;
-    //document.getElementById("answer")!.disa
+    if(choice == 'M')
+      this.isClick = true;
+    else
+      this.isClick1 = true;
     if(choice == this.testWords[this.i].gender){
       console.log("True");
       this.answer = "Correct!";
@@ -111,40 +110,20 @@ export class TestPage implements OnInit {
       this.testWords[this.i].learnIndex++;
       this.storages.setObject(this.testWords[this.i].word, this.testWords[this.i]);
       if(this.testWords[this.i].learnIndex == this.learnIndexMax){
-        console.log("Ok");
-        console.log(this.testWords[this.i].learnIndex);
+        console.log("Learned");
         this.storages.setObject(this.testWords[this.i].word, this.testWords[this.i]);
-      }
-      if(choice == 'M'){
-        this.correctArticle = this.articleM;
-        this.isClick = true;
-      }
-      else{
-        this.correctArticle = this.articleF;
-        this.isClick1 = true;
       }
     }
     else{
       console.log("False");
       this.answer = "Wrong!";
       this.isAnswerCorrect = false;
-      if(choice == 'M'){
-        this.correctArticle = this.articleM;
-        this.isClick = true;
-      }
-      else{
-        this.correctArticle = this.articleM;
-        this.isClick1 = true;
-      }
     }
+    this.allAnswers[this.i] = this.answer;
     //document.getElementById("animate")!.setAttribute("class", "animate__bounceIn");
-    if(this.endingFound == true){
-      this.endingFound = false;
-    }
     this.i++;
-    if(this.i < this.wordsInTest){
+    if(this.i < this.wordsInTest)
       setTimeout(() => {this.continue();}, this.TIME_IN_MS);
-    }
     else
       setTimeout(() => {this.toTestResult();}, this.TIME_IN_MS);
   }
@@ -153,15 +132,13 @@ export class TestPage implements OnInit {
     let navigationExtras: NavigationExtras = {
       state: {
         value: this.correctAnswers,
-        testWords: this.testWords
+        size : this.wordsInTest,
+        articlesWithWords: this.articlesWithWords,
+        allAnswers : this.allAnswers
       }
     };
     this.router.navigate(['test-result'], navigationExtras);
   }
-
-  /*toTestResult(){
-    this.router.navigate(['test-result',  { value: this.correctAnswers }]);
-  }*/
 
   changeArticles()
   {
@@ -181,6 +158,7 @@ async initializeTestWordsArray(){
     for(let i = 0; this.testWords.length < this.wordsInTest; i++)
     {
       data  = await this.storages.getObject(this.allWords[i].word);
+      console.log(data);
       if (data == null){
         console.log("A new word " + this.allWords[i].word);
         this.storages.setObject(this.allWords[i].word, this.allWords[i]);
@@ -192,37 +170,47 @@ async initializeTestWordsArray(){
       }
     }
     console.log(this.testWords);
-    if(this.testWords[this.i].gender == 'M')
+    this.loadNextWord();
+  }
+
+  loadNextWord(){
+    if(this.testWords[this.i].gender == 'M'){
+      this.correctArticle = this.articleM;
       this.findEnding(this.endingsMale);
-    else
+    }
+    else{
+      this.correctArticle = this.articleF;
       this.findEnding(this.endingsFemale);
+    }
+    this.articlesWithWords[this.i] = this.correctArticle + " " + this.testWords[this.i].word;
   }
+
   findEnding(array : string[]){
+    let wordAfterSplit : string[] = [];
+
     for(let i = 0; i < array.length; i++){
-    if(this.testWords[this.i].word.endsWith(array[i]) == true){
-      this.endingFound = true;
-      console.log("Exists");
-      this.wordAfterSplit = this.testWords[this.i].word.split(array[i]);
-      this.word = this.wordAfterSplit[0];
-      this.wordEnding = array[i];
+      console.log("New " + this.testWords[this.i].word);
+      if(this.testWords[this.i].word.endsWith(array[i]) == true){
+        this.endingFound = true;
+        console.log("Exists " + array[i]);
+        wordAfterSplit = this.testWords[this.i].word.split(array[i], 1);
+        this.word = wordAfterSplit[0];
+        this.wordEnding = array[i];
+      }
     }
-  }
-  if(this.endingFound == false){
-      console.log("Exception");
-      this.word = this.testWords[this.i].word;
-    }
+    if(this.endingFound == false){
+        console.log("Exception");
+        this.word = this.testWords[this.i].word;
+      }
+      console.log(this.word);
   }
 
   continue(){
     this.choice = false;
     this.isClick = false;
     this.isClick1 = false;
+    this.isAnswerCorrect = false;
     this.changeArticles();
-    if(this.testWords[this.i].gender == 'M')
-      this.findEnding(this.endingsMale);
-    else
-      this.findEnding(this.endingsFemale);
-    document.getElementById("article")!.hidden = true;
-    document.getElementById("answer")!.hidden = true;
+    this.loadNextWord();
   }
 }

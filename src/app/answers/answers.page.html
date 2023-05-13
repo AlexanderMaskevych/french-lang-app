@@ -7,16 +7,27 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">answers</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <!--<ion-row *ngFor="let word of testWords">
+<ion-content>
+  <ion-item *ngFor="let item of items" lines="full">
+    <ion-grid>
+      <ion-row class="ion-align-items-start">
+        <ion-col class="ion-text-center">
+          <ion-label>{{item.word}}</ion-label>
+        </ion-col>
+        <ion-col class="ion-text-center">
+          <ion-label [ngStyle]= "item.resultBool == true? {'color': '#0bd80b'} : {'color' : '#ff006a'}">{{item.result}}</ion-label>
+        </ion-col>
+    </ion-row>
+    </ion-grid>
+  </ion-item>
+  <!--<ion-grid>
+  <ion-row class="ion-align-items-start" *ngFor="let word of articlesWithWords">
     <ion-col class="ion-text-center">
-      {{word.word}}
+      {{word}}
     </ion-col>
-  </ion-row>-->
+    <ion-col *ngFor="let answer of allAnswers" class="ion-text-center">
+      {{answer}}
+    </ion-col>
+  </ion-row>
+</ion-grid>-->
 </ion-content>

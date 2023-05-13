@@ -1,5 +1,5 @@
 ion-content{
-    --padding-top: 140px;
+    --padding-top: 130px;
 }
 
 .answer{
@@ -7,15 +7,15 @@ ion-content{
 }
 
 .default{
-    --background: rgb(9, 223, 243);
+    --background: #09dff3;
 }
 
 .correct_answer_button{
-    --background: rgb(11, 216, 11);
+    --background: #0bd80b;
 }
 
 .wrong_answer_button{
-    --background: rgb(255, 0, 106);
+    --background: #ff006a;
 }
 
 .correct_answer_text{

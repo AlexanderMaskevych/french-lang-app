@@ -11,6 +11,7 @@ import { NavController, IonNav, NavParams } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 import { Word } from '../database/Word';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-test-result',
@@ -22,18 +23,23 @@ import { Word } from '../database/Word';
 export class TestResultPage implements OnInit {
 
   result : number;
-  testWords : Word[] = [];
+  size : number;
+  articlesWithWords : string[] = [];
+  allAnswers : string[] = [];
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation()?.extras.state) {
+      if (this.router.getCurrentNavigation()?.extras.state){
         this.result = this.router.getCurrentNavigation()?.extras?.state?.value;
-        this.testWords = this.router.getCurrentNavigation()?.extras?.state?.testWords;
+        this.size = this.router.getCurrentNavigation()?.extras?.state?.size;
+        this.articlesWithWords = this.router.getCurrentNavigation()?.extras?.state?.articlesWithWords;
+        this.allAnswers = this.router.getCurrentNavigation()?.extras?.state?.allAnswers;
       }
-      //this.result = Math.round((this.result/10)*100);
     });
   }
+
   ngOnInit() {
+    this.countScore();
   }
  
   toMenu(){
@@ -41,7 +47,17 @@ export class TestResultPage implements OnInit {
   }
 
   toAnswers(){
-    this.router.navigate(['answers']);
+    let navigationExtras: NavigationExtras = {
+      state: {
+        articlesWithWords: this.articlesWithWords,
+        allAnswers: this.allAnswers
+      }
+    };
+    this.router.navigate(['answers'], navigationExtras);
+  }
+
+  countScore(){
+    this.result = Math.round((this.result/this.size)*100);
   }
 }
 
