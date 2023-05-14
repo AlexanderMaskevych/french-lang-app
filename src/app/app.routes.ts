@@ -23,15 +23,15 @@ export const routes: Routes = [
     loadComponent: () => import('./test-result/test-result.page').then( m => m.TestResultPage)
   },
   {
-    path: 'mytest',
-    loadComponent: () => import('./mytest/mytest.page').then( m => m.MytestPage)
-  },
-  {
     path: 'registration',
     loadComponent: () => import('./registration/registration.page').then( m => m.RegistrationPage)
   },
   {
     path: 'answers',
     loadComponent: () => import('./answers/answers.page').then( m => m.AnswersPage)
+  },
+  {
+    path: 'congratulation',
+    loadComponent: () => import('./congratulation/congratulation.page').then( m => m.CongratulationPage)
   }
 ];

@@ -11,18 +11,24 @@ ion-content{
 }
 
 .correct_answer_button{
-    --background: #0bd80b;
+    --background: rgb(11, 216, 11);
 }
 
 .wrong_answer_button{
-    --background: #ff006a;
+    --background: rgb(255, 0, 106);
+}
+
+.default_text{
+    opacity: 0;
 }
 
 .correct_answer_text{
+    opacity: 1;
     color: rgb(11, 216, 11);
 }
 
 .wrong_answer_text{
+    opacity: 1;
     color: rgb(255, 0, 106);
 }
 

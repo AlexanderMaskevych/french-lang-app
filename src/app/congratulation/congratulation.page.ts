@@ -4,22 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
-  selector: 'app-mytest',
-  templateUrl: './mytest.page.html',
-  styleUrls: ['./mytest.page.scss'],
+  selector: 'app-congratulation',
+  templateUrl: './congratulation.page.html',
+  styleUrls: ['./congratulation.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class MytestPage implements OnInit {
+export class CongratulationPage implements OnInit {
+
+  constructor() { }
 
   ngOnInit() {
-  }
-  public segment: string = "list1";
-
-  constructor() {}
-
-  segmentChanged(ev: any) {
-    this.segment = ev.detail.value;
   }
 
 }

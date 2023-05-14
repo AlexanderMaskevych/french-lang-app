@@ -9,9 +9,9 @@
 <ion-content class="ion-padding">
     <ion-grid>
       <ion-row class="ion-align-items-start">
-        <ion-col class="ion-text-center answer">
-          <ion-text [ngClass]="isCorrect()? 'correct_answer_text' : 'wrong_answer_text'">
-            <h1 [hidden]="choice == false">{{answer}}</h1>
+        <ion-col class="ion-text-center">
+          <ion-text [ngClass]="choice == true?(isCorrect()? 'correct_answer_text' : 'wrong_answer_text') : 'default_text'">
+            <h1>{{answer}}</h1>
           </ion-text>
         </ion-col>
       </ion-row>
