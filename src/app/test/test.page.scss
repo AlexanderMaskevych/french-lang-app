@@ -1,13 +1,17 @@
 ion-content{
-    --padding-top: 130px;
+    --padding-top: 80px;
 }
 
 .answer{
-    --min-height: 150px;
+    min-height: 90px;
+}
+
+.description{
+    min-height: 50px;
 }
 
 .default{
-    --background: #09dff3;
+    --background: rgb(9, 223, 243);
 }
 
 .correct_answer_button{
@@ -18,17 +22,11 @@ ion-content{
     --background: rgb(255, 0, 106);
 }
 
-.default_text{
-    opacity: 0;
-}
-
 .correct_answer_text{
-    opacity: 1;
     color: rgb(11, 216, 11);
 }
 
 .wrong_answer_text{
-    opacity: 1;
     color: rgb(255, 0, 106);
 }
 

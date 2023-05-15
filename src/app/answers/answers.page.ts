@@ -32,21 +32,18 @@ export class AnswersPage implements OnInit {
   ngOnInit() {
     this.compare();
     for(let i = 0; i < this.articlesWithWords.length; i++){ 
-    let result = {
-      word: this.articlesWithWords[i],
-      resultBool: this.resultBool[i],
-      result: this.allAnswers[i],
-    };
-    this.items.push(result);
-  }
-  console.log(this.items);
+      let result = {
+        word: this.articlesWithWords[i],
+        resultBool: this.resultBool[i],
+        result: this.allAnswers[i],
+      };
+      this.items.push(result);
+    }
   }
 
-  compare()
-  {
+  compare(){
     for(let i = 0; i < this.allAnswers.length; i++)
       if(this.allAnswers[i] === 'Correct!'){
-        console.log("Yes");
         this.resultBool[i] = true;
       }
       else

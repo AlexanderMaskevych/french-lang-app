@@ -26,15 +26,15 @@ export class MenuPage implements OnInit {
    }
 
   ngOnInit() {
-    this.isLoggedIn = this.authService.isLoggedIn;
   }
 
+  
   toTest(category : string){
     this.router.navigate(['/test', { value: category }]);
   }
 
   Show1() {
-    //this.router.navigate(['/home']);
+    this.router.navigate(['/login-menu']);
   }
   
   Show2() {

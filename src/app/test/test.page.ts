@@ -5,10 +5,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { Word } from '../database/Word';
 import { WordsDbService } from '../database/words-db.service';
-import { NavigationExtras } from '@angular/router';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { StorageService } from '../storage.service';
-
 
 @Component({
   selector: 'app-test',
@@ -21,11 +19,11 @@ export class TestPage implements OnInit {
 
   category : string;
 
-  answer = "No";
+  answer : string;
   allWords : Word[] =[];
   testWords : Word[] = [];
-  wordsInTest = 5;
   i = 0;
+  wordsInTest = 7;
   correctAnswers = 0;
   TIME_IN_MS = 4000;
   correctArticle : string;
@@ -41,19 +39,21 @@ export class TestPage implements OnInit {
   choice = false;
   isClick = false;
   isClick1 = false;
-  testEnd = false;
-  endingFound = false;
   isAnswerCorrect = false;
+  endingFound = false;
+  testEnd = false;
 
   articlesWithWords : string[] = [];
   allAnswers: string[] = [];
 
   learntWordsCounter = 0;
 
+  description : string;
+
   constructor(private wrdService: WordsDbService,
     private route: ActivatedRoute,
     private router: Router,
-    private storages : StorageService) {
+    private storageService : StorageService) {
       this.route.params.subscribe(params => {
       this.category = params['value'];
   });  
@@ -69,27 +69,34 @@ export class TestPage implements OnInit {
         a!['$key'] = item.key;
         this.allWords.push(a as Word);
       })
-      //this.storages.clear()
-      this.changeArticles();
-      //this.fetchLearntWords();
-      console.log(this.learntWordsCounter);
-      this.initializeTestWordsArray();
-    })
-    this.fetchLearntWords();
+      this.countLearntWords().then((res)=> {
+        this.learntWordsCounter = res;
+        if(this.learntWordsCounter == this.allWords.length)
+          this.router.navigate(['congratulation']);
+        else{ 
+          this.initializeTestWordsArray().then(() => {
+            this.changeArticles();
+            this.loadNextWord();
+          });
+        }
+      });
+    });
   }
 
   fetchWords() {
     this.wrdService.getWords(this.category).valueChanges().subscribe(res =>{console.log(res)})
   }
 
-  async fetchLearntWords(){
+  async countLearntWords() : Promise<number>{
     let data : Word;
+    let counter = 0;
     for(let i = 0; i < this.allWords.length; i++)
     {
-      data = await this.storages.getObject(this.allWords[i].word + "_learnt");
+      data = await this.storageService.getObject(this.allWords[i].word + "_learnt");
       if (data != null)
-        this.learntWordsCounter++;
+        counter++;
     }
+    return counter;
   }
 
   isClicked(){
@@ -114,13 +121,12 @@ export class TestPage implements OnInit {
       console.log("True");
       this.answer = "Correct!";
       this.isAnswerCorrect = true;
-      //document.getElementById("animate")!.setAttribute("class", "animate__bounceIn");
       this.correctAnswers++;
       this.testWords[this.i].learnIndex++;
-      this.storages.setObject(this.testWords[this.i].word, this.testWords[this.i]);
+      this.storageService.setObject(this.testWords[this.i].word, this.testWords[this.i]);
       if(this.testWords[this.i].learnIndex == this.learnIndexMax){
         console.log("Learnt!");
-        this.storages.setObject(this.testWords[this.i].word + "_learnt", this.testWords[this.i]);
+        this.storageService.setObject(this.testWords[this.i].word + "_learnt", this.testWords[this.i]);
       }
     }
     else{
@@ -129,7 +135,6 @@ export class TestPage implements OnInit {
       this.isAnswerCorrect = false;
     }
     this.allAnswers[this.i] = this.answer;
-    //document.getElementById("animate")!.setAttribute("class", "animate__bounceIn");
     this.i++;
     if(this.i < this.wordsInTest)
       setTimeout(() => {this.continue();}, this.TIME_IN_MS);
@@ -163,18 +168,6 @@ export class TestPage implements OnInit {
 async initializeTestWordsArray(){
     let data : Word;
 
-    for(let i = 0; i < this.allWords.length; i++)
-    {
-      data = await this.storages.getObject(this.allWords[i].word + "_learnt");
-      if (data != null)
-        this.learntWordsCounter++;
-    }
-    console.log(this.learntWordsCounter);
-    console.log(this.allWords.length);
-    /*if(this.learntWordsCounter == this.allWords.length){
-      console.log("Finished")
-      this.router.navigate(['congratulation']);
-    }*/
     let size = this.allWords.length - this.learntWordsCounter;
     console.log(size);
     if(size < this.wordsInTest){
@@ -182,18 +175,15 @@ async initializeTestWordsArray(){
       this.wordsInTest = size;
       for(let i = 0; i < this.allWords.length; i++)
       {
-        data  = await this.storages.getObject(this.allWords[i].word);
-        console.log(data);
+        data  = await this.storageService.getObject(this.allWords[i].word);
         if (data == null){
           console.log("A new word " + this.allWords[i].word);
-          this.storages.setObject(this.allWords[i].word, this.allWords[i]);
+          this.storageService.setObject(this.allWords[i].word, this.allWords[i]);
           this.testWords.push(this.allWords[i]);
-          console.log(this.testWords[i]);
         }
         else if(data.learnIndex < this.learnIndexMax){
           this.testWords.push(data);
-          console.log("A word has already been in a test " + data.word + " learnIndex " + data.learnIndex);
-          console.log(this.testWords[i]);
+          console.log("A word has already been in a test " + data.word);
         }
       }
     }
@@ -201,30 +191,29 @@ async initializeTestWordsArray(){
       console.log("Case 2");
       for(let i = 0; this.testWords.length < this.wordsInTest; i++)
       {
-        data  = await this.storages.getObject(this.allWords[i].word);
-        console.log(data);
+        data  = await this.storageService.getObject(this.allWords[i].word);
         if (data == null){
           console.log("A new word " + this.allWords[i].word);
-          this.storages.setObject(this.allWords[i].word, this.allWords[i]);
+          this.storageService.setObject(this.allWords[i].word, this.allWords[i]);
           this.testWords.push(this.allWords[i]);
         }
         else if(data.learnIndex < this.learnIndexMax){
           this.testWords.push(data);
-          console.log("A word has already been in a test " + data.word + " learnIndex " + data.learnIndex);
+          console.log("A word has already been in a test " + data.word);
         } 
       }
     }
-    console.log(this.testWords);
-    this.loadNextWord();
   }
 
-  async loadNextWord(){
+  loadNextWord(){
     if(this.testWords[this.i].gender == 'M'){
       this.correctArticle = this.articleM;
+      this.description = "This word does not have a masculine ending. This is an exception.";
       this.findEnding(this.endingsMale);
     }
     else{
       this.correctArticle = this.articleF;
+      this.description = "This word does not have a feminine ending. This is an exception.";
       this.findEnding(this.endingsFemale);
     }
     this.articlesWithWords[this.i] = this.correctArticle + " " + this.testWords[this.i].word;
@@ -232,7 +221,6 @@ async initializeTestWordsArray(){
 
   findEnding(array : string[]){
     let wordAfterSplit : string[] = [];
-    console.log(this.testWords[this.i].word);
     for(let i = 0; i < array.length; i++){
       if(this.testWords[this.i].word.endsWith(array[i]) == true){
         this.endingFound = true;
@@ -247,8 +235,6 @@ async initializeTestWordsArray(){
       console.log("Exception");
       this.word = this.testWords[this.i].word;
     }
-    console.log(this.testWords[this.i].word);
-    console.log(this.word);
   }
 
   continue(){

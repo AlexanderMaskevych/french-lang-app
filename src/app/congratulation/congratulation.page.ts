@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-congratulation',
   templateUrl: './congratulation.page.html',
@@ -12,9 +14,13 @@ import { IonicModule } from '@ionic/angular';
 })
 export class CongratulationPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  toMenu(){
+    this.router.navigate(['menu']);
   }
 
 }

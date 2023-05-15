@@ -9,9 +9,16 @@
 <ion-content class="ion-padding">
     <ion-grid>
       <ion-row class="ion-align-items-start">
-        <ion-col class="ion-text-center">
-          <ion-text [ngClass]="choice == true?(isCorrect()? 'correct_answer_text' : 'wrong_answer_text') : 'default_text'">
+        <ion-col class="ion-text-center answer">
+          <ion-text [hidden]="choice == false? true : false" [ngClass]="isCorrect()? 'correct_answer_text' : 'wrong_answer_text'">
             <h1>{{answer}}</h1>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-align-items-start">
+        <ion-col class="ion-text-center description">
+          <ion-text [hidden]="endingFound == false && choice == true? false : true">
+            <span>{{description}}</span>
           </ion-text>
         </ion-col>
       </ion-row>
@@ -22,10 +29,10 @@
     </ion-row>
     <ion-row class="ion-align-items-end">
       <ion-col class="ion-text-center">
-        <ion-button [disabled]="choice == true" [ngClass]="isClicked()?(isCorrect()? 'correct_answer_button' : 'wrong_answer_button') : 'default'" class="animate__bounceIn" shape="round" (click)="check('M')">{{articleM}}</ion-button>
+        <ion-button [disabled]="choice == true" [ngClass]="isClicked()?(isCorrect()? 'correct_answer_button' : 'wrong_answer_button') : 'default'" shape="round" size="large" (click)="check('M')">{{articleM}}</ion-button>
       </ion-col>
       <ion-col class="ion-text-center">
-        <ion-button [disabled]="choice == true" [ngClass]="isClicked1()?(isCorrect()? 'correct_answer_button' : 'wrong_answer_button') : 'default'" class="animate__bounceIn" shape="round" (click)="check('F')">{{articleF}}</ion-button>
+        <ion-button [disabled]="choice == true" [ngClass]="isClicked1()?(isCorrect()? 'correct_answer_button' : 'wrong_answer_button') : 'default'" shape="round" size="large" (click)="check('F')">{{articleF}}</ion-button>
       </ion-col>
     </ion-row>
     </ion-grid>

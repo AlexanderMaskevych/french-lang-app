@@ -3,15 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { TestPage } from '../test/test.page';
-import { MenuPage } from '../menu/menu.page';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { NavController, IonNav, NavParams } from '@ionic/angular';
-import { Router } from '@angular/router';
 
-import { Word } from '../database/Word';
-import { NavigationExtras } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-test-result',

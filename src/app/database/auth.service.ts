@@ -16,7 +16,7 @@ import { MenuPage } from '../menu/menu.page';
 export class AuthService {
 
   appUser$: Observable<IUser | null | undefined>;
-  isLoggedIn = false;
+  isLoggedIn : boolean;
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -40,20 +40,17 @@ export class AuthService {
         }
       })
     );
-    //this.getAuthState();
+    this.getAuthState();
   }
 
-  getAuthState() 
-  {
+  getAuthState() {
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
-        console.log('user is logged in');
         this.isLoggedIn = true;
-        console.log(this.isLoggedIn);  
+        console.log('user is logged in'+ res.uid);
       } else {
-        console.log('user not logged in');
         this.isLoggedIn = false;
-        console.log(this.isLoggedIn);
+        console.log('user not logged in');
       }
     });
   }
@@ -63,14 +60,13 @@ export class AuthService {
     return this.updateUserData(credential.user);
   }
 
-
   signUpWithEmail(data: any) {
     this.afAuth.createUserWithEmailAndPassword(data.email, data.password)
      .then(data => {
         data.user!.sendEmailVerification().then(() => {
           alert('Please verify your email');
           this.afAuth.signOut();
-          this.router.navigate(['home']);
+          this.router.navigate(['login-menu']);
         })
     });
   }
@@ -99,8 +95,10 @@ export class AuthService {
       console.log(this.isLoggedIn);
       this.router.navigate(['/menu']);
       }
-      else
+      else{
+        this.afAuth.signOut();
         alert('Please verify your email');
+      }
     })
 
   }
@@ -139,7 +137,7 @@ export class AuthService {
 logout() {
     this.afAuth.signOut().then(() => {
       this.isLoggedIn = false;
-      this.router.navigate(['home']);
+      //this.router.navigate(['home']);
     });
  }
 }

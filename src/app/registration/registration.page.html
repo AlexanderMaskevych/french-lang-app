@@ -8,12 +8,8 @@
 </ion-header>
 
 <ion-content>
-  <div class="signup-logo">
-    <img src="assets/images/ionic-logo.png" alt="Ionic Logo">
-  </div>
-
   <form #signupForm="ngForm" novalidate>
-    <ion-list lines="none">
+    <ion-list>
       <ion-item>
         <ion-label position="stacked" color="primary">Email</ion-label>
         <ion-input [(ngModel)]="signup.email" name="email" type="text" #emailCtrl="ngModel" required>

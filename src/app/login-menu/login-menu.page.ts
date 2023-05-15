@@ -1,21 +1,20 @@
-import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
 import { AuthService } from '../database/auth.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
-
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-login-menu',
+  templateUrl: './login-menu.page.html',
+  styleUrls: ['./login-menu.page.scss'],
   standalone: true,
-  imports: [IonicModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
-
-export class HomePage {
+export class LoginMenuPage{
 
   submitted = false;
   user = { email: '', password: '' };
@@ -45,5 +44,5 @@ export class HomePage {
   toMenu(){
     this.router.navigate(['menu']);
   }
-}
 
+}
