@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { Word } from '../database/Word';
-import { WordsDbService } from '../database/words-db.service';
+
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { StorageService } from '../storage.service';
 
@@ -20,12 +20,13 @@ export class TestPage implements OnInit {
   category : string;
 
   answer : string;
-  allWords : Word[] =[];
+  allCategoryWords : Word[] =[];
   testWords : Word[] = [];
   i = 0;
+  wordNumber = 1;
   wordsInTest = 7;
   correctAnswers = 0;
-  TIME_IN_MS = 4000;
+  TIME_IN_MS = 3000;
   correctArticle : string;
   articleM  : string;
   articleF : string;
@@ -50,49 +51,36 @@ export class TestPage implements OnInit {
 
   description : string;
 
-  constructor(private wrdService: WordsDbService,
-    private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
     private router: Router,
     private storageService : StorageService) {
-      this.route.params.subscribe(params => {
-      this.category = params['value'];
-  });  
+      this.route.queryParams.subscribe(params => {
+        if (this.router.getCurrentNavigation()?.extras.state) 
+          this.allCategoryWords = this.router.getCurrentNavigation()?.extras?.state?.categoryWords;
+          this.category = this.router.getCurrentNavigation()?.extras?.state?.category;
+      });
   }
 
   ngOnInit() {
-    this.wrdService.getWords(this.category);
-    this.fetchWords();
-    let wordRes = this.wrdService.getWords(this.category);
-    wordRes.snapshotChanges().subscribe(res => {
-      res.forEach(item => {
-        let a = item.payload.toJSON();
-        a!['$key'] = item.key;
-        this.allWords.push(a as Word);
-      })
-      this.countLearntWords().then((res)=> {
-        this.learntWordsCounter = res;
-        if(this.learntWordsCounter == this.allWords.length)
-          this.router.navigate(['congratulation']);
-        else{ 
-          this.initializeTestWordsArray().then(() => {
-            this.changeArticles();
-            this.loadNextWord();
-          });
-        }
-      });
+    this.countLearntWords().then((res)=> {
+      this.learntWordsCounter = res;
+      if(this.learntWordsCounter == this.allCategoryWords.length)
+        this.router.navigate(['congratulation']);
+      else{ 
+        this.initializeTestWordsArray().then(() => {
+          this.changeArticles();
+          this.loadNextWord();
+        });
+      }
     });
-  }
-
-  fetchWords() {
-    this.wrdService.getWords(this.category).valueChanges().subscribe(res =>{console.log(res)})
   }
 
   async countLearntWords() : Promise<number>{
     let data : Word;
     let counter = 0;
-    for(let i = 0; i < this.allWords.length; i++)
+    for(let i = 0; i < this.allCategoryWords.length; i++)
     {
-      data = await this.storageService.getObject(this.allWords[i].word + "_learnt");
+      data = await this.storageService.getObject(this.allCategoryWords[i].word + "_learnt");
       if (data != null)
         counter++;
     }
@@ -112,6 +100,7 @@ export class TestPage implements OnInit {
   }
 
   check(choice : string){
+    console.log(this.i);
     this.choice = true;
     if(choice == 'M')
       this.isClick = true;
@@ -168,18 +157,18 @@ export class TestPage implements OnInit {
 async initializeTestWordsArray(){
     let data : Word;
 
-    let size = this.allWords.length - this.learntWordsCounter;
+    let size = this.allCategoryWords.length - this.learntWordsCounter;
     console.log(size);
     if(size < this.wordsInTest){
       console.log("Case 1");
       this.wordsInTest = size;
-      for(let i = 0; i < this.allWords.length; i++)
+      for(let i = 0; i < this.allCategoryWords.length; i++)
       {
-        data  = await this.storageService.getObject(this.allWords[i].word);
+        data  = await this.storageService.getObject(this.allCategoryWords[i].word);
         if (data == null){
-          console.log("A new word " + this.allWords[i].word);
-          this.storageService.setObject(this.allWords[i].word, this.allWords[i]);
-          this.testWords.push(this.allWords[i]);
+          console.log("A new word " + this.allCategoryWords[i].word);
+          this.storageService.setObject(this.allCategoryWords[i].word, this.allCategoryWords[i]);
+          this.testWords.push(this.allCategoryWords[i]);
         }
         else if(data.learnIndex < this.learnIndexMax){
           this.testWords.push(data);
@@ -191,11 +180,11 @@ async initializeTestWordsArray(){
       console.log("Case 2");
       for(let i = 0; this.testWords.length < this.wordsInTest; i++)
       {
-        data  = await this.storageService.getObject(this.allWords[i].word);
+        data  = await this.storageService.getObject(this.allCategoryWords[i].word);
         if (data == null){
-          console.log("A new word " + this.allWords[i].word);
-          this.storageService.setObject(this.allWords[i].word, this.allWords[i]);
-          this.testWords.push(this.allWords[i]);
+          console.log("A new word " + this.allCategoryWords[i].word);
+          this.storageService.setObject(this.allCategoryWords[i].word, this.allCategoryWords[i]);
+          this.testWords.push(this.allCategoryWords[i]);
         }
         else if(data.learnIndex < this.learnIndexMax){
           this.testWords.push(data);
@@ -245,5 +234,6 @@ async initializeTestWordsArray(){
     this.endingFound = false;
     this.changeArticles();
     this.loadNextWord();
+    this.wordNumber++;
   }
 }

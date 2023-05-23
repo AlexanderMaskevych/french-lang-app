@@ -7,33 +7,42 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-    <ion-grid>
-      <ion-row class="ion-align-items-start">
-        <ion-col class="ion-text-center answer">
-          <ion-text [hidden]="choice == false? true : false" [ngClass]="isCorrect()? 'correct_answer_text' : 'wrong_answer_text'">
-            <h1>{{answer}}</h1>
-          </ion-text>
-        </ion-col>
+    <ion-grid style="height: 100%; display: grid;"class="ion-text-center">
+      <ion-row class="ion-align-items-center">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="answer">
+              <ion-text [hidden]="choice == false? true : false" [ngClass]="isCorrect()? 'correct_answer_text' : 'wrong_answer_text'">
+                <h1>{{answer}}</h1>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="description">
+              <ion-text [hidden]="endingFound == false && choice == true? false : true">
+                <span>{{description}}</span>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+        <ion-row>
+          <ion-col>
+            <h3><ion-text [hidden]="choice == false">{{correctArticle}}</ion-text>{{word}}<ion-text [hidden]="endingFound == false" [ngClass]="choice? 'text_clicked_color' : 'text_default_color'">{{wordEnding}}</ion-text></h3>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button [disabled]="choice == true" [ngClass]="isClicked()?(isCorrect()? 'correct_answer_button' : 'wrong_answer_button') : 'default'" shape="round" size="large" (click)="check('M')">{{articleM}}</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button [disabled]="choice == true" [ngClass]="isClicked1()?(isCorrect()? 'correct_answer_button' : 'wrong_answer_button') : 'default'" shape="round" size="large" (click)="check('F')">{{articleF}}</ion-button>
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+        </ion-row>
+      <ion-row class="ion-align-self-end">
+        <ion-col>
+          <span>{{wordNumber}} word out {{wordsInTest}}</span>
+        </ion-col>       
       </ion-row>
-      <ion-row class="ion-align-items-start">
-        <ion-col class="ion-text-center description">
-          <ion-text [hidden]="endingFound == false && choice == true? false : true">
-            <span>{{description}}</span>
-          </ion-text>
-        </ion-col>
-      </ion-row>
-    <ion-row class="ion-align-items-center">
-      <ion-col class="ion-text-center">
-        <h3><ion-text [hidden]="choice == false">{{correctArticle}}</ion-text>{{word}}<ion-text [hidden]="endingFound == false" [ngClass]="choice? 'text_clicked_color' : 'text_default_color'">{{wordEnding}}</ion-text></h3>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-align-items-end">
-      <ion-col class="ion-text-center">
-        <ion-button [disabled]="choice == true" [ngClass]="isClicked()?(isCorrect()? 'correct_answer_button' : 'wrong_answer_button') : 'default'" shape="round" size="large" (click)="check('M')">{{articleM}}</ion-button>
-      </ion-col>
-      <ion-col class="ion-text-center">
-        <ion-button [disabled]="choice == true" [ngClass]="isClicked1()?(isCorrect()? 'correct_answer_button' : 'wrong_answer_button') : 'default'" shape="round" size="large" (click)="check('F')">{{articleF}}</ion-button>
-      </ion-col>
-    </ion-row>
     </ion-grid>
 </ion-content>

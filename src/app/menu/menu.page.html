@@ -42,19 +42,22 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <ion-list>
       <ion-list-header>
         <ion-label><h2>Categories</h2></ion-label>
       </ion-list-header>
-      <ion-item button (click)="toTest('Animals')" detail = "true">
-        <ion-label>Animals</ion-label>
+      <ion-item button (click)="toTest(categories[0])" detail = "true">
+        <ion-label>{{categories[0]}}</ion-label>
       </ion-item>
-      <ion-item button (click)="toTest('Body')" detail = "true">
-        <ion-label>Body</ion-label>
+      <ion-item button (click)="toTest(categories[1])" detail = "true">
+        <ion-label>{{categories[1]}}</ion-label>
       </ion-item>
-        <ion-item id="food" button (click)="toTest('Food')" detail="true">
-        <ion-label>Food</ion-label>
-        </ion-item>
+      <ion-item button (click)="toTest(categories[2])" detail="true">
+        <ion-label>{{categories[2]}}</ion-label>
+      </ion-item>
     </ion-list>
   </ion-content>
 </div>

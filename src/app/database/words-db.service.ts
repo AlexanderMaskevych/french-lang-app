@@ -6,13 +6,11 @@ import { Word } from './Word';
   providedIn: 'root'
 })
 export class WordsDbService {
-  wordsRef: AngularFireList<any>;
-
+  wordsRefs: AngularFireList<any>;
 
   constructor(private db: AngularFireDatabase){}
 
   getWords(category : string) {
-    return this.wordsRef = this.db.list(category);
-    //this.wordsRef.valueChanges().subscribe(res =>{console.log(res)})
-   }
+    return this.wordsRefs = this.db.list(category);
+  }
 }
